@@ -146,7 +146,7 @@ paths:
         - petstore_auth:
             - write_pets
             - read_pets
-  '/pets/{petId}':
+  '/pet/{petId}':
     get:
       tags:
         - pet

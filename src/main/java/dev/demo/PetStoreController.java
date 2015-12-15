@@ -1,8 +1,10 @@
 package dev.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,22 +15,31 @@ import java.util.List;
 @Controller
 public class PetStoreController {
 
-    @RequestMapping("/")
-    String index(final ModelMap model) throws Exception {
+    private static final String VIEW_PET = "pet";
+    private static final String VIEW_PETS = "pets";
 
-        final ApiClient apiClient = new ApiClient();
-        apiClient.setDebugging(false);
+    @Autowired
+    private PetApi petApi;
 
-        final PetApi petApi = new PetApi(apiClient);
+    @RequestMapping(value = "/pet" )
+    String index(@RequestParam("petId") Long petId, final ModelMap model) throws Exception {
 
-        final List<String> tags = new ArrayList<String>();
-        tags.add("tag1");
+        final Pet pet = petApi.getPetById(petId);
+
+        model.addAttribute("petId", petId);
+        model.addAttribute("pet", pet);
+
+        return VIEW_PET;
+    }
+
+
+    @RequestMapping(value = "/pets" )
+    String petsByTag(@RequestParam("tags") List<String> tags, final ModelMap model) throws Exception {
 
         final List<Pet> pets = petApi.findPetsByTags(tags);
 
         model.addAttribute("pets", pets);
 
-        return "index";
+        return VIEW_PETS;
     }
-
 }

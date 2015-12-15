@@ -2,6 +2,7 @@ package dev.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,8 +14,12 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    @Bean
+    public PetApi petApi() {
+        return new PetApi(new ApiClient());
+    }
 
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class);
     }
 }

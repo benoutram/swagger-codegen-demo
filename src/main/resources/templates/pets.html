@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello Spring Boot!</title>
+    <title>Pets</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
@@ -9,11 +9,13 @@
     <thead>
     <tr>
         <th>Id</th>
+        <th>Name</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="pet : ${pets}">
-        <td th:text="${pet.id}">Oranges</td>
+    <tr data-th-each="pet : ${pets}">
+        <td data-th-text="${pet.id}">9999</td>
+        <td data-th-text="${pet.name}">Tarantula</td>
     </tr>
     </tbody>
 </table>
